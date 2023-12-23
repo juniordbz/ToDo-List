@@ -7,11 +7,12 @@ import { ITasks } from '../../App';
 
 interface Props{
   tasks: ITasks;
+  onDelete: (taskId: string) => void;
 }
 
 
-export function Tasks({ tasks } :Props){
- 
+export function Tasks({ tasks, onDelete } :Props){
+  
   return(
     <div className={styles.content}>
       {/* Empty Task */}
@@ -42,7 +43,11 @@ export function Tasks({ tasks } :Props){
            
         </div>
         
-        <button title='Delet task' className={styles.btnTrash}>
+        <button     
+          onClick={() => onDelete(tasks.id)}     
+          title='Delet task' 
+          className={styles.btnTrash}
+        >
           <Trash2
             size={15}
           />

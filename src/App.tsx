@@ -10,7 +10,7 @@ import { useState } from "react";
 // tasks {ID: number, status: "", content: ""}
 
 export interface ITasks{
-  id?: string;
+  id: string;
   status: boolean;
   content: string;
 }
@@ -38,6 +38,11 @@ function App() {
     //   content:'Fuga quisquam alias tempore dolorum minima voluptatum voluptatem sit deleniti in iure accusantium, reprehenderit provident nulla aspernatur obcaecati rerum, ea at culpa.',
     // },
   ]);
+
+  function  deleteTaskById(taskId: string){
+    const newTasks = tasks.filter(task => task.id !== taskId)
+    setTasks(newTasks);
+  }
 
   function addTasks(taskContent: string){
     setTasks([
@@ -70,6 +75,7 @@ function App() {
           <Tasks            
             key={task.id}
             tasks={task}
+            onDelete={deleteTaskById}
           />
         )
       })}
