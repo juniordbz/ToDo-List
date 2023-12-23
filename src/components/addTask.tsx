@@ -9,7 +9,10 @@ interface Props{
 
 export function AddTask({onAddTask}:Props){
 
-  const [content, sentContent] = useState("")
+
+  const [content, sentContent] = useState("");
+
+  const contentEmpty = content.length === 0;
 
   function handleSubmit(event: FormEvent){
     event.preventDefault();
@@ -18,7 +21,12 @@ export function AddTask({onAddTask}:Props){
   }
 
   function onChangeContent(event: ChangeEvent<HTMLTextAreaElement>){
+    event.target.setCustomValidity('');
     sentContent(event.target.value);
+  }
+
+  function handleNewTaskInvalid(event:ChangeEvent<HTMLTextAreaElement>){
+    event.target.setCustomValidity('Por favor digite uma tarefa');
   }
 
   return(
@@ -33,14 +41,16 @@ export function AddTask({onAddTask}:Props){
           name='task'
           placeholder='Adicione uma nova tarefa'
           required
-          onInvalid={}
+          onInvalid={handleNewTaskInvalid}
         />
         <button 
-        className={styles.btn}
-        type='submit'>
+          className={styles.btn}
+          type='submit'
+          disabled={contentEmpty}
+        >
           <p>Criar</p>
           <PlusCircle
-          size={15}
+              size={15}
           />
         </button>
       </form>

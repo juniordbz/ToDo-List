@@ -22,21 +22,21 @@ export interface QuantityTasks{
 function App() {
 
   const [tasks, setTasks] = useState<ITasks[]>([
-    {
-      id: '1',
-      status:true,
-      content:'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga quisquam alias tempore dolorum minima voluptatum voluptatem sit deleniti in iure accusantium, reprehenderit provident nulla aspernatur obcaecati rerum, ea at culpa.',
-    } ,
-    {
-      id: '2',
-      status:false,
-      content:'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
-    } ,
-    {
-      id: '3',
-      status:false,
-      content:'Fuga quisquam alias tempore dolorum minima voluptatum voluptatem sit deleniti in iure accusantium, reprehenderit provident nulla aspernatur obcaecati rerum, ea at culpa.',
-    },
+    // {
+    //   id: '1',
+    //   status:true,
+    //   content:'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga quisquam alias tempore dolorum minima voluptatum voluptatem sit deleniti in iure accusantium, reprehenderit provident nulla aspernatur obcaecati rerum, ea at culpa.',
+    // } ,
+    // {
+    //   id: '2',
+    //   status:false,
+    //   content:'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
+    // } ,
+    // {
+    //   id: '3',
+    //   status:false,
+    //   content:'Fuga quisquam alias tempore dolorum minima voluptatum voluptatem sit deleniti in iure accusantium, reprehenderit provident nulla aspernatur obcaecati rerum, ea at culpa.',
+    // },
   ]);
 
   function addTasks(taskContent: string){

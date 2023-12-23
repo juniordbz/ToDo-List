@@ -39,6 +39,11 @@
   color: var(--gray-100);
 }
 
-.btn:hover{
+.btn:not(:disabled):hover{
   background: var(--blue);
+}
+
+.btn:disabled{
+  opacity: .7;
+  cursor: not-allowed;
 }
