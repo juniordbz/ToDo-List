@@ -1,0 +1,42 @@
+.content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  margin-top: 100px;
+  width: 736px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.count{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+}
+
+.count p{
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.count p.textPurple{
+  color: var(--purple);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.count span{
+  background: var(--gray-400);
+  color: var(--gray-200);
+  border-radius: 999px;
+  padding: .2rem .5rem;
+  font-weight: 700;
+  margin-left: .5rem;
+}

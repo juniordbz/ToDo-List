@@ -1,22 +1,21 @@
 import { Circle, ClipboardList, Trash2 } from 'lucide-react'
 import styles from './tasks.module.css'
+import { ITasks } from '../../App';
 
-export function TaskEmpty(){
+// Tudo que varia de uma task para outra.
+// tasks {ID: number, status: "", content: ""}
+
+interface Props{
+  tasks: ITasks;
+}
+
+
+export function Tasks({ tasks } :Props){
+ 
   return(
     <div className={styles.content}>
-      <div className={styles.header}>
-        <div className={styles.count}>
-          <p>Tarefas criadas</p>
-          <span>5</span>
-        </div>
-        <div className={styles.count}>
-          <p className={styles.textPurple}>Concluídas</p>
-          <span>2 de 5</span>
-        </div>
-      </div>
-      
       {/* Empty Task */}
-    
+{/*     
       <div className={styles.taskListEmpty}>
         <ClipboardList
           size={60}
@@ -24,17 +23,25 @@ export function TaskEmpty(){
         <p>Você ainda não tem tarefas cadastradas</p>
         <span>Crie tarefas e organize seus itens a fazer</span>
 
-      </div>
+      </div> */}
 
       {/* TaskList */}
 
       <div className={styles.taskList}>
-        <button title='check' className={styles.btnCircle}>
-          <Circle className={styles.btnCircleHover}
-            size={15}
-          />
-        </button>
-        <p>Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.</p>
+
+        <div className={styles.contentTask}>
+          <button title='check' className={styles.btnCircle}>
+            <Circle className={styles.btnCircleHover}
+              size={15}            
+            />
+
+          
+          </button>
+  
+           {tasks.content}
+           
+        </div>
+        
         <button title='Delet task' className={styles.btnTrash}>
           <Trash2
             size={15}
