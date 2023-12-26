@@ -7,27 +7,6 @@
   width: 736px;
 }
 
-/* empty */
-
-.taskListEmpty{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  border-top: solid 1px var(--gray-400);
-  min-height: 287px;
-}
-
-.taskListEmpty p {
-  margin-top: 1rem;
-  font-weight: 700;
-  font-size: 1rem;
-}
-.taskListEmpty span {
-  font-size: 1rem;
-}
-
 /*taskList */
 
 .taskList{
@@ -63,14 +42,33 @@
 
 }
 
-.btnCircle{
+.btnCheck{
   background: transparent;
   border: none;
-  color: var(--blue);
+  
 }
 
-.btnCircle :first-child:hover{
+.btnNotCompleted {
+  color: var(--blue)
+}
+
+.btnNotCompleted :hover{
   color: var(--blue-dark);
   fill:var(--blue);
   fill-opacity: 50%;
 }
+
+.btnCompleted{
+  color: var(--gray-500);
+  fill:var(--purple-dark);
+}
+
+.btnCompleted :hover{
+  color: var(--purple-dark);
+  fill-opacity: 50%;
+}
+
+.taskCompleted{
+  color: var(--gray-300);
+  text-decoration: line-through;
+} 

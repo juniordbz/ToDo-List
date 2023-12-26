@@ -5,3 +5,24 @@
   align-items: center;
   justify-content: center;
 }
+
+/* empty tasks */
+
+.taskListEmpty{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border-top: solid 1px var(--gray-400);
+  min-height: 287px;
+  min-width: 736px;
+}
+
+.taskListEmpty p {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+.taskListEmpty span {
+  font-size: 1rem;
+}

@@ -4,6 +4,8 @@ import { Tasks } from "./components/TaskList/tasks"
 import styles from './App.module.css'
 import { CountTasks } from "./components/countTasks";
 import { useState } from "react";
+import { ClipboardList } from "lucide-react";
+
 
 
 // Tudo que varia de uma task para outra.
@@ -21,23 +23,7 @@ export interface QuantityTasks{
 
 function App() {
 
-  const [tasks, setTasks] = useState<ITasks[]>([
-    // {
-    //   id: '1',
-    //   status:true,
-    //   content:'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga quisquam alias tempore dolorum minima voluptatum voluptatem sit deleniti in iure accusantium, reprehenderit provident nulla aspernatur obcaecati rerum, ea at culpa.',
-    // } ,
-    // {
-    //   id: '2',
-    //   status:false,
-    //   content:'Lorem ipsum dolor sit, amet consectetur adipisicing elit.',
-    // } ,
-    // {
-    //   id: '3',
-    //   status:false,
-    //   content:'Fuga quisquam alias tempore dolorum minima voluptatum voluptatem sit deleniti in iure accusantium, reprehenderit provident nulla aspernatur obcaecati rerum, ea at culpa.',
-    // },
-  ]);
+  const [tasks, setTasks] = useState<ITasks[]>([]);
 
   function  deleteTaskById(taskId: string){
     const newTasks = tasks.filter(task => task.id !== taskId)
@@ -54,6 +40,20 @@ function App() {
       }
     ])
   }
+  
+  function toggleTaskCompletedById(taskId: string){
+    const newTask = tasks.map(task => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          status: !task.status,
+        }
+      }
+      return task;
+    });
+    setTasks(newTask);
+  }
+
 
   const taskQuantity = tasks.length;
   const completedTask = tasks.filter( task => task.status).length;
@@ -76,9 +76,24 @@ function App() {
             key={task.id}
             tasks={task}
             onDelete={deleteTaskById}
+            onComplete={toggleTaskCompletedById}
+            taskQuantity={taskQuantity}
           />
         )
       })}
+
+     {taskQuantity <=0 &&
+      (
+        <div className={styles.taskListEmpty}>
+        <ClipboardList
+          size={60}
+        />
+        <p><strong>Você ainda não tem tarefas cadastradas</strong></p>
+        <span>Crie tarefas e organize seus itens a fazer</span>
+
+        </div>
+      )} 
+      
       
     </div>
   )
