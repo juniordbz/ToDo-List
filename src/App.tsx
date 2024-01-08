@@ -52,15 +52,18 @@ function App() {
     });
 
     // ordenar tasks por status
-    newTask.sort((before, after)=>{
-     return before.status - after.status
+    newTask.sort((toDo, done)=>{
+     if(toDo.status === false){
+      return -1;
+     } else if(done.status === true){
+      return 1;
+     }else {
+      return 0;
+     }
     })
     setTasks(newTask);
     
   }
-
-
-
 
   const taskQuantity = tasks.length;
   const completedTask = tasks.filter( task => task.status).length;
@@ -75,12 +78,8 @@ function App() {
     if(confirmationDelete === true){
       setTasks([]);
     }
-    
   }
-
   
-
-
   return (
     <div className={styles.content}>
       <Header/>
@@ -117,17 +116,34 @@ function App() {
         </div>
       )} 
 
-     {tasks.length >0 && 
-        <button onClick={handleClearTasksDone}>
-          Limpar concluidas
-        </button> 
-      } 
-     {tasks.length >0 && 
-        <button onClick={handleClearTasksAll}>
-          Limpar tudo
-        </button> 
-      } 
+{/* 
+    {tasks.map(task =>  {    
+     return( */}
+     {taskQuantity > 0 && 
+        <div className={styles.buttonsClear} >
+          <button 
+          className={!status ? styles.btnClearDone : styles.bntClearDoneDisabled  } 
+          onClick={handleClearTasksDone}
+          >
+            Limpar concluidas
+          </button> 
+
+          <button className={styles.btnClearAll} onClick={handleClearTasksAll}>
+            Limpar tudo
+          </button> 
+        </div>
+}
+      {/* )        
       
+    })} */}
+        
+        
+      
+      
+         
+     
+  
+   
         
     </div>
   )

@@ -17,7 +17,7 @@ export function AddTask({onAddTask}:Props){
   function handleSubmit(event: FormEvent){
     event.preventDefault();
     onAddTask(content);
-    sentContent('');
+    sentContent(''); 
   }
 
   function onChangeContent(event: ChangeEvent<HTMLTextAreaElement>){

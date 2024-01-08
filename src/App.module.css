@@ -26,3 +26,38 @@
 .taskListEmpty span {
   font-size: 1rem;
 }
+
+.buttonsClear{
+  display: flex;
+  flex: 1;
+  width: 736px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btnClearDone{
+  color:var(--gray-100);
+  background: var(--blue-dark);
+  border-radius: 8px;
+  padding: .875rem;
+  border: none;
+}
+.btnClearDone:hover{
+  background: var(--blue);
+}
+
+.bntClearDoneDisabled{
+  color:var(--gray-100);
+  background: var(--danger);
+}
+
+.btnClearAll{
+  color:var(--gray-100);
+  background: var(--danger);
+  border-radius: 8px;
+  padding: .875rem;
+  border: none;
+}
+.btnClearAll:hover{
+  opacity: .7;
+}
