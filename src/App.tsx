@@ -116,26 +116,26 @@ function App() {
         </div>
       )} 
 
-{/* 
-    {tasks.map(task =>  {    
-     return( */}
-     {taskQuantity > 0 && 
+      {tasks.length > 0 && 
         <div className={styles.buttonsClear} >
           <button 
-          className={!status ? styles.btnClearDone : styles.bntClearDoneDisabled  } 
-          onClick={handleClearTasksDone}
+            className={completedTask >=1 ? styles.btnClearDone : styles.bntClearDoneDisabled  } 
+            onClick={handleClearTasksDone}
+            disabled={completedTask === 0}
           >
-            Limpar concluidas
+            Limpar concluidas 
           </button> 
 
           <button className={styles.btnClearAll} onClick={handleClearTasksAll}>
             Limpar tudo
           </button> 
         </div>
-}
-      {/* )        
-      
-    })} */}
+    }
+        
+ 
+
+       
+
         
         
       

@@ -48,7 +48,12 @@
 
 .bntClearDoneDisabled{
   color:var(--gray-100);
-  background: var(--danger);
+  background: var(--blue-dark);
+  border-radius: 8px;
+  padding: .875rem;
+  border: none;
+  opacity: .7;
+  cursor: not-allowed;
 }
 
 .btnClearAll{
