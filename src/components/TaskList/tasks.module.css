@@ -71,4 +71,9 @@
 .taskCompleted{
   color: var(--gray-300);
   text-decoration: line-through;
+  overflow-wrap: anywhere;
 } 
+.taksP{
+  overflow-wrap: anywhere;
+}
+

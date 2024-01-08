@@ -12,7 +12,7 @@ interface Props{
   onComplete: (taskId: string) => void;
 }
 
-export function Tasks({ tasks, onDelete, onComplete } :Props){
+export function Tasks({ tasks, onDelete, onComplete  } :Props){
   
   return(
     <div className={styles.content}>
@@ -41,7 +41,7 @@ export function Tasks({ tasks, onDelete, onComplete } :Props){
           
           </button>
 
-          <p className={tasks.status ? styles.taskCompleted : "" }>{tasks.content}</p>
+          <p className={tasks.status ? styles.taskCompleted : styles.taksP }>{tasks.content}</p>
           
         </div>
         

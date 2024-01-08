@@ -31,14 +31,13 @@ function App() {
   }
 
   function addTasks(taskContent: string){
-    setTasks([
-      ...tasks,
-      {
-        id: crypto.randomUUID(),
-        status: false,
-        content: taskContent,
-      }
-    ])
+    const copyOfTasks = [...tasks]
+    copyOfTasks.unshift({
+      id: crypto.randomUUID(),
+      status: false,
+      content: taskContent,
+    })
+    setTasks(copyOfTasks)
   }
   
   function toggleTaskCompletedById(taskId: string){
@@ -51,12 +50,36 @@ function App() {
       }
       return task;
     });
+
+    // ordenar tasks por status
+    newTask.sort((before, after)=>{
+     return before.status - after.status
+    })
     setTasks(newTask);
+    
   }
+
+
 
 
   const taskQuantity = tasks.length;
   const completedTask = tasks.filter( task => task.status).length;
+
+  function handleClearTasksDone(){
+    const newTasks = tasks.filter(task => task.status === false)
+    setTasks(newTasks);
+  }
+
+  function handleClearTasksAll(){
+    const confirmationDelete = confirm("Tem certeza que seja deletar todas as terefas?");
+    if(confirmationDelete === true){
+      setTasks([]);
+    }
+    
+  }
+
+  
+
 
   return (
     <div className={styles.content}>
@@ -93,8 +116,19 @@ function App() {
 
         </div>
       )} 
+
+     {tasks.length >0 && 
+        <button onClick={handleClearTasksDone}>
+          Limpar concluidas
+        </button> 
+      } 
+     {tasks.length >0 && 
+        <button onClick={handleClearTasksAll}>
+          Limpar tudo
+        </button> 
+      } 
       
-      
+        
     </div>
   )
 }
