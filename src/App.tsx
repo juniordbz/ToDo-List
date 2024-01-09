@@ -1,100 +1,113 @@
-import { Header } from "./components/Header"
-import { AddTask } from "./components/addTask"
-import { Tasks } from "./components/TaskList/tasks"
+import { Header } from './components/Header'
+import { AddTask } from './components/addTask'
+import { Tasks } from './components/TaskList/tasks'
 import styles from './App.module.css'
-import { CountTasks } from "./components/countTasks";
-import { useState } from "react";
-import { ClipboardList } from "lucide-react";
-
-
+import { CountTasks } from './components/countTasks'
+import { useEffect, useState } from 'react'
+import { ClipboardList } from 'lucide-react'
 
 // Tudo que varia de uma task para outra.
 // tasks {ID: number, status: "", content: ""}
 
-export interface ITasks{
-  id: string;
-  status: boolean;
-  content: string;
+export interface ITasks {
+  id: string
+  status: boolean
+  content: string
+  createdAt?: Date
 }
 
-export interface QuantityTasks{
-  counts: number;
+export interface QuantityTasks {
+  counts: number
 }
 
 function App() {
+  const [tasks, setTasks] = useState<ITasks[]>([])
+  const [hasCompletedTask, setHasCompletedTask] = useState<boolean>(false)
 
-  const [tasks, setTasks] = useState<ITasks[]>([]);
-
-  function  deleteTaskById(taskId: string){
-    const newTasks = tasks.filter(task => task.id !== taskId)
-    setTasks(newTasks);
+  function deleteTaskById(taskId: string) {
+    const newTasks = tasks.filter((task) => task.id !== taskId)
+    setTasks(newTasks)
   }
 
-  function addTasks(taskContent: string){
+  function addTasks(taskContent: string) {
     const copyOfTasks = [...tasks]
     copyOfTasks.unshift({
       id: crypto.randomUUID(),
       status: false,
       content: taskContent,
+      createdAt: new Date(),
     })
     setTasks(copyOfTasks)
   }
-  
-  function toggleTaskCompletedById(taskId: string){
-    const newTask = tasks.map(task => {
+
+  function toggleTaskCompletedById(taskId: string) {
+    const newTask = tasks.map((task) => {
       if (task.id === taskId) {
         return {
           ...task,
           status: !task.status,
         }
       }
-      return task;
-    });
-
-    // ordenar tasks por status
-    newTask.sort((toDo, done)=>{
-     if(toDo.status === false){
-      return -1;
-     } else if(done.status === true){
-      return 1;
-     }else {
-      return 0;
-     }
+      return task
     })
-    setTasks(newTask);
-    
+
+    orderTasksByDate(newTask)
+    orderTasksByStatus(newTask)
+    setTasks(newTask)
   }
 
-  const taskQuantity = tasks.length;
-  const completedTask = tasks.filter( task => task.status).length;
-
-  function handleClearTasksDone(){
-    const newTasks = tasks.filter(task => task.status === false)
-    setTasks(newTasks);
+  function orderTasksByDate(newTask: ITasks[]) {
+    // ordenar tasks por data
+    newTask.sort((a, b) => {
+      return new Date(a.createdAt) - new Date(b.createdAt)
+    })
   }
 
-  function handleClearTasksAll(){
-    const confirmationDelete = confirm("Tem certeza que seja deletar todas as terefas?");
-    if(confirmationDelete === true){
-      setTasks([]);
+  function orderTasksByStatus(newTask: ITasks[]) {
+    // ordenar tasks por status
+    newTask.sort((toDo, done) => {
+      if (toDo.status === false) {
+        return -1
+      } else if (done.status === true) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+  }
+
+  const taskQuantity = tasks.length
+  const completedTask = tasks.filter((task) => task.status).length
+
+  function handleClearTasksDone() {
+    const newTasks = tasks.filter((task) => task.status === false)
+    setTasks(newTasks)
+  }
+
+  function handleClearTasksAll() {
+    const confirmationDelete = confirm(
+      'Tem certeza que seja deletar todas as terefas?',
+    )
+    if (confirmationDelete === true) {
+      setTasks([])
     }
   }
-  
+
+  useEffect(() => {
+    const completedTasks = tasks.filter((task) => task.status === true)
+    setHasCompletedTask(completedTasks.length > 0)
+  }, [tasks])
+
   return (
     <div className={styles.content}>
-      <Header/>
-      <AddTask
-        onAddTask={addTasks}      
-      />
+      <Header />
+      <AddTask onAddTask={addTasks} />
 
-      <CountTasks
-        taskQuantity={taskQuantity}
-        completedTask={completedTask}
-      />
+      <CountTasks taskQuantity={taskQuantity} completedTask={completedTask} />
 
-      {tasks.map(task =>{
+      {tasks.map((task) => {
         return (
-          <Tasks            
+          <Tasks
             key={task.id}
             tasks={task}
             onDelete={deleteTaskById}
@@ -104,47 +117,35 @@ function App() {
         )
       })}
 
-     {taskQuantity <=0 &&
-      (
+      {taskQuantity <= 0 && (
         <div className={styles.taskListEmpty}>
-        <ClipboardList
-          size={60}
-        />
-        <p><strong>Você ainda não tem tarefas cadastradas</strong></p>
-        <span>Crie tarefas e organize seus itens a fazer</span>
-
+          <ClipboardList size={60} />
+          <p>
+            <strong>Você ainda não tem tarefas cadastradas</strong>
+          </p>
+          <span>Crie tarefas e organize seus itens a fazer</span>
         </div>
-      )} 
+      )}
 
-      {tasks.length > 0 && 
-        <div className={styles.buttonsClear} >
-          <button 
-            className={completedTask >=1 ? styles.btnClearDone : styles.bntClearDoneDisabled  } 
+      {tasks.length > 0 && (
+        <div className={styles.buttonsClear}>
+          <button
+            className={
+              hasCompletedTask
+                ? styles.btnClearDone
+                : styles.bntClearDoneDisabled
+            }
             onClick={handleClearTasksDone}
-            disabled={completedTask === 0}
+            disabled={!hasCompletedTask}
           >
-            Limpar concluidas 
-          </button> 
+            Limpar concluidas
+          </button>
 
           <button className={styles.btnClearAll} onClick={handleClearTasksAll}>
             Limpar tudo
-          </button> 
+          </button>
         </div>
-    }
-        
- 
-
-       
-
-        
-        
-      
-      
-         
-     
-  
-   
-        
+      )}
     </div>
   )
 }
