@@ -68,7 +68,9 @@ function App() {
   function orderTasksByDate(newTask: ITasks[]) {
     // ordenar tasks por data
     newTask.sort((a, b) => {
-      return new Date(a.createdAt) - new Date(b.createdAt)
+      const x = a.createdAt ? a.createdAt.getTime() : new Date().getTime()
+      const y = b.createdAt ? b.createdAt.getTime() : new Date().getTime()
+      return x - y
     })
   }
 

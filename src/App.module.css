@@ -15,7 +15,14 @@
   border-radius: 8px;
   border-top: solid 1px var(--gray-400);
   min-height: 287px;
-  min-width: 736px;
+  width: 736px;
+}
+
+@media screen and (max-width:991px){
+  .taskListEmpty{
+    width: 100%;
+    padding: 1rem;
+  }
 }
 
 .taskListEmpty p {
