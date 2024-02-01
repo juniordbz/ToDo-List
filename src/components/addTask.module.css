@@ -1,13 +1,31 @@
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 736px;
+  position: absolute;
+  transform: translate(0%, -50%);
+}
+
 .form{
   display: flex;
   justify-content: center;
   align-items: center;
   gap: .5rem;
   height: 54px;
-  width: 736px;
-  position: absolute;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  
 }
+
+@media screen and (max-width: 991px) {
+  .container {
+    width: 350px;
+    padding:1rem;
+    transform: translate(0%, -90%);
+  }
+}
+
+
 
 .form textarea{
   background: var(--gray-500);

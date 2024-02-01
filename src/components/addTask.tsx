@@ -37,7 +37,7 @@ export function AddTask({ onAddTask }: Props) {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <textarea
           onChange={onChangeContent}
