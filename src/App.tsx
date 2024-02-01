@@ -20,8 +20,17 @@ export interface QuantityTasks {
   counts: number
 }
 
+const TASKS_STORAGE_KEY = 'TodoList:Tasks'
+
 function App() {
-  const [tasks, setTasks] = useState<ITasks[]>([])
+  const [tasks, setTasks] = useState<ITasks[]>(() => {
+    const storedTasks = localStorage.getItem(TASKS_STORAGE_KEY)
+    if (storedTasks) {
+      return JSON.parse(storedTasks)
+    }
+    return []
+  })
+
   const [hasCompletedTask, setHasCompletedTask] = useState<boolean>(false)
 
   function deleteTaskById(taskId: string) {
@@ -96,6 +105,11 @@ function App() {
   useEffect(() => {
     const completedTasks = tasks.filter((task) => task.status === true)
     setHasCompletedTask(completedTasks.length > 0)
+  }, [tasks])
+
+  // localStorage
+  useEffect(() => {
+    localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(tasks))
   }, [tasks])
 
   return (

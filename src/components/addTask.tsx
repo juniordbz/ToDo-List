@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, KeyboardEvent, useState } from 'react'
 import styles from './addTask.module.css'
 import { PlusCircle } from 'lucide-react'
 
@@ -10,20 +10,6 @@ export function AddTask({ onAddTask }: Props) {
   const [content, sentContent] = useState('')
 
   const contentEmpty = content.length === 0
-
-  useEffect(() => {
-    const handleEnterKey = (event: KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        handleSubmit(event)
-      }
-    }
-
-    document.addEventListener('keydown', handleEnterKey)
-
-    return () => {
-      document.removeEventListener('keydown', handleEnterKey)
-    }
-  }, [handleSubmit])
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -43,6 +29,13 @@ export function AddTask({ onAddTask }: Props) {
     event.target.setCustomValidity('Por favor digite uma tarefa')
   }
 
+  function handleEnterKey(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      handleSubmit(event)
+    }
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -53,6 +46,7 @@ export function AddTask({ onAddTask }: Props) {
           placeholder="Adicione uma nova tarefa"
           required
           onInvalid={handleNewTaskInvalid}
+          onKeyDown={handleEnterKey}
         />
         <button className={styles.btn} type="submit" disabled={contentEmpty}>
           <p>Criar</p>
