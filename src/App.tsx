@@ -13,7 +13,7 @@ export interface ITasks {
   id: string
   status: boolean
   content: string
-  createdAt?: Date
+  createdAt?: number
 }
 
 export interface QuantityTasks {
@@ -21,8 +21,11 @@ export interface QuantityTasks {
 }
 
 const TASKS_STORAGE_KEY = 'TodoList:Tasks'
+// const TASKSSTATUS_STORAGE_KEY = 'TodoList:Status'
 
 function App() {
+  const [hasCompletedTask, setHasCompletedTask] = useState<boolean>(false)
+
   const [tasks, setTasks] = useState<ITasks[]>(() => {
     const storedTasks = localStorage.getItem(TASKS_STORAGE_KEY)
     if (storedTasks) {
@@ -30,8 +33,6 @@ function App() {
     }
     return []
   })
-
-  const [hasCompletedTask, setHasCompletedTask] = useState<boolean>(false)
 
   function deleteTaskById(taskId: string) {
     const newTasks = tasks.filter((task) => task.id !== taskId)
@@ -44,7 +45,7 @@ function App() {
       id: crypto.randomUUID(),
       status: false,
       content: taskContent,
-      createdAt: new Date(),
+      createdAt: new Date().getTime(),
     })
     setTasks(copyOfTasks)
   }
@@ -68,8 +69,8 @@ function App() {
   function orderTasksByDate(newTask: ITasks[]) {
     // ordenar tasks por data
     newTask.sort((a, b) => {
-      const x = a.createdAt ? a.createdAt.getTime() : new Date().getTime()
-      const y = b.createdAt ? b.createdAt.getTime() : new Date().getTime()
+      const x = a.createdAt ? a.createdAt : new Date().getTime()
+      const y = b.createdAt ? b.createdAt : new Date().getTime()
       return x - y
     })
   }
