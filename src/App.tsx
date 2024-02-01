@@ -68,7 +68,7 @@ function App() {
   function orderTasksByDate(newTask: ITasks[]) {
     // ordenar tasks por data
     newTask.sort((a, b) => {
-      return new Date(a.createdAt) - new Date(b.createdAt)
+      return a.createdAt.getTime() - b.createdAt.getTime()
     })
   }
 
