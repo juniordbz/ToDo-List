@@ -19,7 +19,6 @@
 @media screen and (max-width: 991px) {
   .container {
     width: 350px;
-    padding:1rem;
     transform: translate(0%, -50%);
   }
 }
