@@ -1,13 +1,11 @@
 
-.content{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.container{
+  margin-bottom: 0.75rem;
   width: 736px;
 }
 
 @media screen and (max-width:991px){
-  .content{
+  .container{
     width: 100%;
     padding: 0 1rem;
   }
@@ -15,7 +13,7 @@
 
 /*taskList */
 
-.taskList{
+.task{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,16 +22,32 @@
   min-height: 4.5rem;
   border-radius: 8px;
   border: 1px solid var(--gray-400);
-  margin-bottom: 12px;
   padding: 1rem;
 }
 
-.contentTask{
+.containerTask{
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 1rem;
   margin-right: 1rem;
+  width: 100%;
+}
+
+.inputContent{
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--gray-100)
+
+}
+
+.content{
+  width: 100%;
 }
 
 .btnTrash{

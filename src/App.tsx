@@ -105,6 +105,16 @@ function App() {
     }
   }
 
+  const handleEditTask = (taskId: string, newContent: string) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, content: newContent }
+      }
+      return task
+    })
+    setTasks(updatedTasks)
+  }
+
   useEffect(() => {
     const completedTasks = tasks.filter((task) => task.status === true)
     setHasCompletedTask(completedTasks.length > 0)
@@ -130,6 +140,7 @@ function App() {
             onDelete={deleteTaskById}
             onComplete={toggleTaskCompletedById}
             taskQuantity={taskQuantity}
+            onEdit={handleEditTask}
           />
         )
       })}
