@@ -5,7 +5,8 @@ import styles from './App.module.css'
 import { CountTasks } from './components/countTasks'
 import { useEffect, useState } from 'react'
 import { ClipboardList } from 'lucide-react'
-
+import * as Dialog from '@radix-ui/react-dialog'
+import { Modal } from './components/modal'
 // Tudo que varia de uma task para outra.
 // tasks {ID: number, status: "", content: ""}
 
@@ -25,6 +26,7 @@ const TASKS_STORAGE_KEY = 'TodoList:Tasks'
 
 function App() {
   const [hasCompletedTask, setHasCompletedTask] = useState<boolean>(false)
+  const [open, setOpen] = useState(false)
 
   const [tasks, setTasks] = useState<ITasks[]>(() => {
     const storedTasks = localStorage.getItem(TASKS_STORAGE_KEY)
@@ -97,12 +99,7 @@ function App() {
   }
 
   function handleClearTasksAll() {
-    const confirmationDelete = confirm(
-      'Tem certeza que seja deletar todas as terefas?',
-    )
-    if (confirmationDelete === true) {
-      setTasks([])
-    }
+    setTasks([])
   }
 
   const handleEditTask = (taskId: string, newContent: string) => {
@@ -154,26 +151,32 @@ function App() {
           <span>Crie tarefas e organize seus itens a fazer</span>
         </div>
       )}
-
-      {tasks.length > 0 && (
-        <div className={styles.buttonsClear}>
-          <button
-            className={
-              hasCompletedTask
-                ? styles.btnClearDone
-                : styles.bntClearDoneDisabled
-            }
-            onClick={handleClearTasksDone}
-            disabled={!hasCompletedTask}
-          >
-            Limpar concluidas
-          </button>
-
-          <button className={styles.btnClearAll} onClick={handleClearTasksAll}>
-            Limpar tudo
-          </button>
-        </div>
-      )}
+      <Dialog.Root open={open} onOpenChange={setOpen}>
+        {tasks.length > 0 && (
+          <div className={styles.buttonsClear}>
+            <button
+              className={
+                hasCompletedTask
+                  ? styles.btnClearDone
+                  : styles.bntClearDoneDisabled
+              }
+              onClick={handleClearTasksDone}
+              disabled={!hasCompletedTask}
+            >
+              Limpar concluidas
+            </button>
+            <Dialog.Trigger asChild>
+              <button
+                className={styles.btnClearAll}
+                onClick={() => setOpen(true)}
+              >
+                Limpar tudo
+              </button>
+            </Dialog.Trigger>
+            <Modal setOpen={setOpen} deleteTask={handleClearTasksAll} />
+          </div>
+        )}
+      </Dialog.Root>
     </div>
   )
 }
